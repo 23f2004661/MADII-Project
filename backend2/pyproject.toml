@@ -10,4 +10,5 @@ dependencies = [
     "flask-jwt-extended>=4.7.1",
     "flask-restful>=0.3.10",
     "flask-sqlalchemy>=3.1.1",
+    "matplotlib>=3.10.7",
 ]

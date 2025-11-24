@@ -5,10 +5,15 @@ export default {
     return {
       navlinks: {
         user: [
-          { name: "Book", path: "/user/book" }
+          { name: "Home", path: "/user" },
+          {name: "History", path: "/user/history"},
+          {name: "Summary", path: "/user/summary"}
         ],
         admin: [
-          { name: "Users", path: "/admin/users" }
+          { name: "Home", path: "/admin" },
+          { name: "Users", path: "/admin/users" },
+          { name: "Create", path: "/admin/createlot" },
+          { name: "Summary", path: "/admin/summary"}
         ]
       },
       role: ""
@@ -19,6 +24,12 @@ export default {
       this.role = localStorage.getItem("role");
       // Optional: log for debugging
       console.log("Navbar role:", this.role);
+    },
+    logoutUser(){
+      console.log("logging out ...")
+      localStorage.removeItem("token")
+      localStorage.removeItem("role")
+      this.$router.push("/login")
     }
   },
   mounted() {
@@ -35,6 +46,7 @@ export default {
         <li v-for="link in navlinks.user" :key="link.path">
           <router-link :to="link.path">{{ link.name }}</router-link>
         </li>
+        <li class="logout"><button @click="logoutUser">Logout</button></li>
       </ul>
     </div>
     <div v-else-if="role === 'admin'" class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -42,9 +54,23 @@ export default {
         <li v-for="link in navlinks.admin" :key="link.path">
           <router-link :to="link.path">{{ link.name }}</router-link>
         </li>
+        <li class="logout"><button @click="logoutUser">Logout</button></li>
       </ul>
     </div>
   </nav>
 </template>
 
-<style></style>
+<style scoped>
+ul {
+  display: flex;
+  align-items: center;
+}
+
+nav ul li:not(:last-child) {
+    margin-right: 15px; /* For horizontal spacing */
+}
+.logout {
+  margin-left: auto; /* Pushes logout to the far right */
+}
+
+</style>
