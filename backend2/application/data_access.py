@@ -2,7 +2,7 @@ from .models import User, Reserve_Parking_Spot, Parking_Lot
 from flask_jwt_extended import current_user
 from app import cache
 from time import perf_counter_ns
-@cache.cached(timeout=180, key_prefix='mall_data')
+@cache.cached(timeout=30, key_prefix='mall_data')
 def get_mall_data():
     Lots=[]
     start = perf_counter_ns()
